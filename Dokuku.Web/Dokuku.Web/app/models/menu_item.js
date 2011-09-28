@@ -1,3 +1,3 @@
-Ext.regModel('Contact', {
-    fields: ['firstName', 'lastName']
+Ext.regModel('MenuItem', {
+    fields: ['namaMenu', 'menuId', 'keterangan']
 });

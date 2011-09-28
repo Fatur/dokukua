@@ -1,47 +1,56 @@
-ToolbarDemo.views.detailMenuToolbar=new Ext.Toolbar({
-	    items:[{
-		text:'back',
-		ui:'back',
-		handler:function(){
-		    ToolbarDemo.views.homecard.setActiveItem('listmenuwrapper',{type:'slide',direction:'right'});
-		}
-	    }]
-	});
-ToolbarDemo.views.detailMenuPanel =new Ext.Panel({
-	    id:'detailmenupanel',
-	    tpl:'Hello, {firstName}!',
-	    dockedItems:[ToolbarDemo.views.detailMenuToolbar]
-	});
-ToolbarDemo.views.listMenu = new Ext.List({
-            id: 'indexmenu',
-            store: ToolbarDemo.MenuStore,
-            itemTpl: '<div class="contact">{firstName} {lastName}</div>',
-            onItemDisclosure: function(record){
-              	var name=record.data.firstName + " " + record.data.lastName;
-				ToolbarDemo.views.detailMenuToolbar.setTitle(name);
-            	ToolbarDemo.views.detailMenuPanel.update(record.data);
-            	ToolbarDemo.views.homecard.setActiveItem('detailmenupanel');
-            }
-        });
-ToolbarDemo.views.listMenuWrapper =new Ext.Panel({
-	    id:'listmenuwrapper',
-	    layout:'fit',
-	    items:[ToolbarDemo.views.listMenu],
-	    dockedItems:[{
-		xtype: 'toolbar',
-		title: 'Menu Dokuku'
-	    }]
-	});
-	
 ToolbarDemo.views.Homecard = Ext.extend(Ext.Panel, {
     title: "home",
     iconCls: "home",
     initComponent: function() {
+    	var  list;
+        list = {
+        	id:'listmenu',
+            xtype: 'list',
+            itemTpl: '{namaMenu}',
+            store: ToolbarDemo.MenuStore,
+            listeners: {
+                scope: this,
+                itemtap: this.onItemtapAction
+            }
+        };
+
         Ext.apply(this, {
         	layout: 'card',
-	    	items: [ToolbarDemo.views.listMenuWrapper,ToolbarDemo.views.detailMenuPanel]
+        	dockedItems:[this.titlebar],
+        	items:[list,
+        		{ xtype: 'ToolbarDemo.views.DaftarBarangWrapper', id:'menudaftarbarang'},
+        		{ xtype: 'ToolbarDemo.views.ProfilUsahaWrapper', id:'menuprofilusaha'},
+        		{ xtype: 'ToolbarDemo.views.PembelianWrapper', id:'menupembelian'},
+        		{ xtype: 'ToolbarDemo.views.BarangForm', id:'formBarang'}
+        	]
         });
         ToolbarDemo.views.Homecard.superclass.initComponent.apply(this, arguments);
+    },
+    
+    onItemtapAction: function(list, index, item, e) {
+        Ext.dispatch({
+            controller: 'MenusCtl',
+            action: 'selectMenu',
+            index: index
+        });
+    },
+    titlebar: {
+            dock: 'top',
+            xtype: 'toolbar',
+            title: 'Menu Dokuku',
+        },
+    reveal: function(target) {
+        var direction = (target === 'listmenu') ? 'right' : 'left'
+        this.setActiveItem(
+        	target,
+            { type: 'slide', direction: direction }
+        );
+    },
+    hideTitle: function(){
+    	this.removeDocked(this.dockedItems.items[0]);
+    },
+    unhideTitle: function(){
+    	this.insertDocked(0,this.titlebar);
     }
 });
 

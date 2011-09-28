@@ -1,7 +1,7 @@
 ToolbarDemo.views.Viewport = Ext.extend(Ext.TabPanel, {
     fullscreen: true,
 
-    initComponent: function() {
+    initComponent: function () {
         Ext.apply(this, {
             tabBar: {
                 dock: 'bottom',
@@ -18,5 +18,12 @@ ToolbarDemo.views.Viewport = Ext.extend(Ext.TabPanel, {
             ]
         });
         ToolbarDemo.views.Viewport.superclass.initComponent.apply(this, arguments);
+    },
+    reveal: function (target) {
+        var direction = (target === 'home') ? 'right' : 'left'
+        this.setActiveItem(
+        	target,
+            { type: 'slide', direction: direction }
+        );
     }
 });
