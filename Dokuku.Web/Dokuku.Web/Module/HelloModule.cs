@@ -11,7 +11,6 @@ namespace Dokuku.Web.Module
             {
                 return "Hello " + parameters.name;
             };
-
         }
     }
 }
