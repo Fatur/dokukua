@@ -6,7 +6,7 @@ namespace Dokuku.Web.Module
     {
         public HelloModule()
         {
-            Get["/"] = parameters => "Hello World";
+            Get["/"] = parameters => { return View["index"]; };
             Get["/hello/{name}"] = parameters =>
             {
                 return "Hello " + parameters.name;

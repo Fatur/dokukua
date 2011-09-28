@@ -56,6 +56,23 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.js" />
+    <Content Include="app\models\list_item.js" />
+    <Content Include="app\models\menu_item.js" />
+    <Content Include="app\stores\menustore.js" />
+    <Content Include="app\stores\morestore.js" />
+    <Content Include="app\views\aboutcard.js" />
+    <Content Include="app\views\actioncard.js" />
+    <Content Include="app\views\bookmarkcard.js" />
+    <Content Include="app\views\homecard.js" />
+    <Content Include="app\views\morecard.js" />
+    <Content Include="app\views\searchcard.js" />
+    <Content Include="app\views\settingscard.js" />
+    <Content Include="app\views\Viewport.js" />
+    <Content Include="index.html" />
+    <Content Include="senchalib\sencha-touch.css" />
+    <Content Include="senchalib\sencha-touch.js" />
+    <Content Include="stylesheets\styles.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -65,7 +82,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Module\AppModule.cs" />
+    <Compile Include="Module\CssModule.cs" />
     <Compile Include="Module\HelloModule.cs" />
+    <Compile Include="Module\SenchaModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
